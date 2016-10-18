@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Getting started example",
+  "name": "Simple Notes",
   "description": "This extension shows a Google Image search result for the current page",
   "version": "1.0",
 
@@ -9,11 +9,6 @@
     "default_icon": "earth.png",
     "default_popup": "popup.html"
   },
-  "content_scripts": [
-  {
-    "js": ["popup.js"]
-  }
-  ],
   "permissions": [
     "activeTab",
     "https://ajax.googleapis.com/",
