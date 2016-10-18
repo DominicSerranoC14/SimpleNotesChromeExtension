@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+
+  "name": "Getting started example",
+  "description": "This extension shows a Google Image search result for the current page",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "earth.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+  {
+    "js": ["popup.js"]
+  }
+  ],
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/",
+    "https://simple-notes-chrome-extension.firebaseio.com/",
+    "https://console.firebase.google.com/project/simple-notes-chrome-extension/database/data/"
+  ]
+}
