@@ -9,14 +9,14 @@ let inputArea = document.getElementById('input-text');
 // });
 
 function makeRequest() {
-  httpRequest = new XMLHttpRequest();
-  httpRequest.open('GET', 'https://simple-notes-chrome-extension.firebaseio.com/simple-notes-chrome-extension');
-
-  // httpRequest.onreadystatechange = 200;
-  httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
-  // httpRequest.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  console.log(httpRequest.response);
+  let httpRequest = new XMLHttpRequest();
+  httpRequest.open('GET', 'http://localhost:3000/');
   httpRequest.send();
+  httpRequest.addEventListener('load', loadSuccess);
+}
+
+function loadSuccess() {
+  console.log("Res text", JSON.parse(this.responseText));
 }
 
 inputArea.addEventListener('keyup', () => {
