@@ -1,25 +1,25 @@
-console.log("Test text");
+'use strict';
 
-const button = document.getElementById('save-button');
-let inputArea = document.getElementById('input-text');
+const newNoteButton = document.getElementById('new-note-button');
+const inputArea = document.getElementById('input-text');
+const noteTitle = document.getElementById('note-title');
 
-// button.addEventListener('click', () => {
-//   console.log("Test text pressed");
-//   console.log("Test text", inputArea.value);
-// });
-
-function makeRequest() {
-  let httpRequest = new XMLHttpRequest();
-  httpRequest.open('GET', 'http://localhost:3000/');
-  httpRequest.send();
+const createNewNote = () => {
+  // httpRequest.setRequestHeader("Content-Type", "application/json");
+  // httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.open('POST', 'https://simple-notes-23614.firebaseio.com/.json');
+  httpRequest.send(JSON.stringify(noteTitle.value));
   httpRequest.addEventListener('load', loadSuccess);
-}
+};
+
 
 function loadSuccess() {
-  console.log("Res text", JSON.parse(this.responseText));
-}
+  console.log("Res text", this.responseText);
+};
 
-inputArea.addEventListener('keyup', () => {
-  console.log("Test text", inputArea.value);
-  console.log(makeRequest());
+
+newNoteButton.addEventListener('click', () => {
+  console.log("Test sent", noteTitle.value);
+  createNewNote();
 });
