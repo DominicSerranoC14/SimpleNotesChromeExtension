@@ -2,11 +2,6 @@
 
 const getEl = (tagName) => document.querySelector(tagName);
 
-const newNoteButton = document.querySelector('.new-note-button');
-const inputArea = document.querySelector('.input-text');
-const noteTitle = document.querySelector('.note-title');
-
-
 const createNewNote = () => {
   const httpRequest = new XMLHttpRequest();
   httpRequest.open('POST', 'https://simple-notes-23614.firebaseio.com/.json');
@@ -32,16 +27,14 @@ function parseGetNotes() {
 };
 
 const displayNoteList = (noteList) => {
-  let html = "";
+  let html = "<h2>Note List</h2>";
   getEl('.note-menu').classList.add('hidden');
 
-  // getEl('.note-list').classList.remove('hidden');
+  getEl('.note-list').classList.remove('hidden');
 
-  noteList.forEach(each => {
+  noteList.forEach((each, i) => {
     html += `
-    <div>
-    <p>${each.title}</p>
-    </div>
+    <p class="note-item" id="${i}">${each.title}</p>
     `;
   })
   getEl('.note-list').innerHTML = html;
@@ -50,10 +43,7 @@ const displayNoteList = (noteList) => {
 
 
 
-getEl('.view-notes-button').addEventListener('click', () => {
-  console.log('View notes');
-  getAllNotes();
-});
+getEl('.view-notes-button').addEventListener('click', getAllNotes);
 
 getEl('.new-note-button').addEventListener('click', () => {
   console.log('New note');
