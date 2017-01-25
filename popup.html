@@ -9,11 +9,24 @@
 
   <h1>Quick Notes</h1>
 
-  <textarea rows="20" cols="50"></textarea>
+  <div class="note-menu">
+    <input class="view-notes-button" type="button" value="View Notes">
+    <input class="new-note-button" type="button" value="Create Note">
+  </div>
 
-  <input id="note-title" type="text" name="name-title" placeholder="Note title" />
-  <input id="new-note-button" type="button" value="Create Note">
+  <div class="note-list"></div>  
 
-  <script src="./popup.js"></script>
+  <div class="note-title-div hidden">
+    <input class="note-title" type="text" name="name-title" placeholder="Note title" />
+    <input class="new-note-button" type="button" value="Create Note">
+  </div>
+
+  <div class="note-text-div hidden">
+    <textarea class="note-textarea" rows="20" cols="50"></textarea>
+    <input class="note-save-button" type="button" value="Save Note">
+  </div>
+
+
+  <script src="js/popup.js"></script>
 </body>
 </html>
