@@ -11,6 +11,7 @@ body {
 
 input {
   margin: 1rem;
+  font-size: 20px;
 }
 
 p {
@@ -24,7 +25,7 @@ p {
 }
 
 .note-item {
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .note-item:hover {

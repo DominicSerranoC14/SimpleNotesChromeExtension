@@ -2,6 +2,8 @@
 
 const getEl = (tagName) => document.querySelector(tagName);
 
+const getElList = (tagName) => document.querySelectorAll(tagName);
+
 const createNewNote = () => {
   const httpRequest = new XMLHttpRequest();
   httpRequest.open('POST', 'https://simple-notes-23614.firebaseio.com/.json');
