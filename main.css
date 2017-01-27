@@ -1,0 +1,33 @@
+body {
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+input {
+  margin: 1rem;
+  font-size: 20px;
+}
+
+p {
+  margin: .5rem;
+}
+
+/* Styles the note list div */
+.note-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.note-item {
+  font-size: 18px;
+}
+
+.note-item:hover {
+  color: blue;
+}
