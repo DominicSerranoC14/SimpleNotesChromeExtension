@@ -9,25 +9,17 @@ const getAllNotes = () => {
 
 const parseGetNotes = (e) => {
   const parsed = JSON.parse(e.target.responseText);
-  const noteArray = makeKeyValueObjArray(Object.keys(parsed), Object.values(parsed));
-  determineNoteState(noteArray);
-};
 
-// Create an array of objs with the note values as well as the firebase key
-const makeKeyValueObjArray = (keys, values) => {
-  let objArray;
-
+  const values = Object.values(parsed);
+  const keys = Object.keys(parsed);
   values.forEach((each, i) => each.key = keys[i]);
 
-  console.log("values", values);
-  return values;
+  determineNoteState(values);
 };
 
 // Determines if a note was actively being view last
 const determineNoteState = (noteArray) => {
-  const activeNote = noteArray.filter(each => (
-    each.inUse
-  ));
+  const activeNote = noteArray.filter(each => each.inUse);
 
   if (activeNote.length === 1) {
     displayNoteList(activeNote);
@@ -62,7 +54,7 @@ const activateNoteItem = () => {
 
   getElList('.note-item').forEach(each => {
     each.addEventListener('click', (e) => {
-      console.log(e.target.id);
+      let itemId = e.target.id;
       getEl('note-texarea');
     });
   });
