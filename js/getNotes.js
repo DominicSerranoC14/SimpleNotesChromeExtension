@@ -21,7 +21,9 @@ const determineNoteState = (noteArray) => {
   if (activeNote.length === 0) {
     getEl('.note-menu').classList.remove('hidden');
   } else if (activeNote.length === 1) {
-    displayNoteList(activeNote);
+    // If a note has been tagged inUse pass it's id to
+    // display the inUse note
+    displaySelNote(activeNote[0].key);
   } else {
     displayNoteList(noteArray);
   };
