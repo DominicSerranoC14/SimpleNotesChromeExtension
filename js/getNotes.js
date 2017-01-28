@@ -27,16 +27,3 @@ const determineNoteState = (noteArray) => {
     displayNoteList(noteArray);
   }
 };
-
-const displayNoteList = (noteList) => {
-  let html = "";
-  getEl('.note-list').classList.remove('hidden');
-
-  noteList.forEach((each) => {
-    html += `
-    <p class="note-item" id="${each.key}">${each.title}</p>
-    `;
-  })
-
-  getEl('.note-list').innerHTML = html;
-};
