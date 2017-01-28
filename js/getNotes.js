@@ -1,7 +1,6 @@
 'use strict';
 
-const URL = 'https://simple-notes-23614.firebaseio.com';
-
+// Get all notes and add firebase key to each note obj
 const getAllNotes = () => {
   fetch(`${URL}/notes/.json`)
   .then((response) => response.json())
@@ -12,18 +11,4 @@ const getAllNotes = () => {
     return values;
   })
   .then(determineNoteState);
-};
-
-// Determines if a note was actively being view last
-const determineNoteState = (noteArray) => {
-  const activeNote = noteArray.filter(each => each.inUse);
-
-  if (activeNote.length === 1) {
-    // If a note has been tagged inUse pass it's id to
-    // display the inUse note
-    displaySelNote(activeNote[0].key);
-  } else {
-    getEl('.note-menu').classList.remove('hidden');
-    displayNoteList(noteArray);
-  }
 };

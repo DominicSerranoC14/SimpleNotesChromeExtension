@@ -1,19 +1,18 @@
 'use strict';
 
-// Activate note click events
-const activateNoteList = () => {
-  getEl('.note-list').addEventListener('click', (e) => {
-    if (e.target.classList.contains('note-item')) {
-      let noteId = e.target.id;
-      getEl('.note-menu').classList.add('hidden');
+// Determines if a note was actively being view last
+const determineNoteState = (noteArray) => {
+  const activeNote = noteArray.filter(each => each.inUse);
 
-      displaySelNote(noteId)
-      .then(activateNoteInUse)
-      .catch(console.error)
-    }
-  })
+  if (activeNote.length === 1) {
+    // If a note has been tagged inUse pass it's id to
+    // display the inUse note
+    displaySelNote(activeNote[0].key);
+  } else {
+    getEl('.note-menu').classList.remove('hidden');
+    displayNoteList(noteArray);
+  }
 };
-
 
 // Change the note being view currently to inUse
 const activateNoteInUse = (noteId) => {
