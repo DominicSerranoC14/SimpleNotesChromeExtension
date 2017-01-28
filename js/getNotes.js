@@ -50,9 +50,9 @@ const displayNoteList = (noteList) => {
 const activateNoteItem = () => {
   getElList('.note-item').forEach(each => {
     each.addEventListener('click', (e) => {
-      let itemId = e.target.id;
+      let noteId = e.target.id;
 
-      fetch(`${URL}/notes/${itemId}.json`)
+      fetch(`${URL}/notes/${noteId}.json`)
       .then(response => response.json())
       .then(noteObj => {
         console.log("noteObj", noteObj);
@@ -60,15 +60,20 @@ const activateNoteItem = () => {
         getEl('.note-text-div').classList.remove('hidden');
         getEl('.note-text-div textarea').innerHTML = noteObj.text;
         getEl('.note-title').value = noteObj.title;
-      })
 
+        return noteId;
+      })
+      .then(activateNoteInUse)
+      .catch(console.error)
+      
     });
   });
 };
 
-
-// fetch(`${URL}/new/-KbXvpH3Eg2zCkrhAJ2y.json`, {
-//   method: 'PUT',
-//   body: JSON.stringify({ main: 'one', set: [1,3] })
-// })
-// .then(console.log);
+// Change the note being view currently to inUse
+const activateNoteInUse = (noteId) => {
+  return fetch(`${URL}/notes/${noteId}.json`, {
+    method: 'PATCH',
+    body: JSON.stringify({ inUse: true })
+  })
+}
