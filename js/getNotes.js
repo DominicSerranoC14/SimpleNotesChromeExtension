@@ -1,20 +1,16 @@
 'use strict';
 
 const getAllNotes = () => {
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.open('GET', 'https://simple-notes-23614.firebaseio.com/notes/.json');
-  httpRequest.send();
-  httpRequest.addEventListener('load', parseGetNotes);
-};
-
-const parseGetNotes = (e) => {
-  const parsed = JSON.parse(e.target.responseText);
-
-  const values = Object.values(parsed);
-  const keys = Object.keys(parsed);
-  values.forEach((each, i) => each.key = keys[i]);
-
-  determineNoteState(values);
+  fetch('https://simple-notes-23614.firebaseio.com/notes/.json')
+  .then((response) => response.json())
+  .then(fbObj => {
+    const values = Object.values(fbObj);
+    const keys = Object.keys(fbObj);
+    values.forEach((each, i) => each.key = keys[i]);
+    return values
+  })
+  .then(determineNoteState)
+  .then(activateNoteItem)
 };
 
 // Determines if a note was actively being view last
@@ -46,8 +42,6 @@ const displayNoteList = (noteList) => {
     getEl('.note-list').innerHTML = "";
     getEl('.note-menu').classList.remove('hidden');
   });
-
-  activateNoteItem();
 };
 
 const activateNoteItem = () => {
@@ -55,6 +49,7 @@ const activateNoteItem = () => {
   getElList('.note-item').forEach(each => {
     each.addEventListener('click', (e) => {
       let itemId = e.target.id;
+      console.log("itemId", itemId);
       getEl('note-texarea');
     });
   });
