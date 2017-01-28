@@ -1,7 +1,9 @@
 'use strict';
 
+const URL = 'https://simple-notes-23614.firebaseio.com';
+
 const getAllNotes = () => {
-  fetch('https://simple-notes-23614.firebaseio.com/notes/.json')
+  fetch(`${URL}/notes/.json`)
   .then((response) => response.json())
   .then(fbObj => {
     const values = Object.values(fbObj);
@@ -49,7 +51,11 @@ const activateNoteItem = () => {
   getElList('.note-item').forEach(each => {
     each.addEventListener('click', (e) => {
       let itemId = e.target.id;
-      console.log("itemId", itemId);
+
+      fetch(`${URL}/notes/${itemId}.json`)
+      .then(response => response.json())
+      .then(console.log)
+
       getEl('note-texarea');
     });
   });
