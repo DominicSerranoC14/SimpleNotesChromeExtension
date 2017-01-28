@@ -26,6 +26,7 @@ const displaySelNote = (noteId) => {
     getEl('.time-p').innerHTML = 'Last saved: ' + `<b>${noteObj.timeStamp}</b>`;
 
     createItemSaveButton(noteId);
+    createItemSaveAndExitButton(noteId);
 
     return noteId;
   })
@@ -49,6 +50,16 @@ const createItemSaveButton = (noteId) => {
   b.addEventListener('click', saveCurrentNote);
 };
 
+const createItemSaveAndExitButton = (noteId) => {
+  const b = document.createElement('input');
+  b.setAttribute('id', noteId);
+  b.setAttribute('class', 'save-exit-button');
+  b.setAttribute('type', 'button');
+  b.setAttribute('value', 'Save and Close');
+  getEl('.note-text-div').append(b);
+  b.addEventListener('click', saveCurrentNoteAndExit);
+};
+
 // Will patch the edited note on firebase
 const saveCurrentNote = (e) => {
   fetch(`${URL}/notes/${e.target.id}.json`, {
@@ -57,7 +68,28 @@ const saveCurrentNote = (e) => {
       title: getEl('.note-title').value,
       text: getEl('.note-text-div textarea').value,
       inUse: false,
-      timeStamp: `${Date().slice(4,10)} ${Date().slice(16, 21)}`
+      timeStamp: `${Date().slice(4,10)} ${Date().slice(16, 24)}`
+    })
+  })
+  .then(res => res.json())
+  .then(updatedNoteObj => {
+    // Update the currently save note
+    getEl('.note-title').value = updatedNoteObj.title;
+    getEl('.note-text-div textarea').value = updatedNoteObj.text;
+    getEl('.time-p').innerHTML = `Last saved: <b>${updatedNoteObj.timeStamp}</b>`;
+  })
+  .catch(console.error);
+};
+
+
+const saveCurrentNoteAndExit = (e) => {
+  fetch(`${URL}/notes/${e.target.id}.json`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+      title: getEl('.note-title').value,
+      text: getEl('.note-text-div textarea').value,
+      inUse: false,
+      timeStamp: `${Date().slice(4,10)} ${Date().slice(16, 24)}`
     })
   })
   .then(() => {
@@ -66,6 +98,7 @@ const saveCurrentNote = (e) => {
     getEl('.note-text-div textarea').value = "";
     getEl('.note-text-div').classList.add('hidden');
     getEl('.save-button').remove();
+    getEl('.save-exit-button').remove();
   })
   .then(() => getAllNotes())
   .catch(console.error);
