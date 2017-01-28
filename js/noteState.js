@@ -2,16 +2,19 @@
 
 // Activate note click events
 const activateNoteItem = () => {
-  getElList('.note-item').forEach(each => {
-    each.addEventListener('click', (e) => {
-      let noteId = e.target.id;
+  let currentObj;
 
-      displaySelNote(noteId)
-      .then(activateNoteInUse)
-      .catch(console.error)
-
-    });
-  });
+  // getElList('.note-item').forEach(each => {
+  //   each.addEventListener('click', (e) => {
+  //     let noteId = e.target.id;
+  //     getEl('.note-menu').classList.add('hidden');
+  //
+  //     displaySelNote(noteId)
+  //     .then(activateNoteInUse)
+  //     .catch(console.error)
+  //
+  //   });
+  // });
 };
 
 const displaySelNote = (noteId) => {
@@ -20,14 +23,30 @@ const displaySelNote = (noteId) => {
   .then(noteObj => {
     getEl('.note-list').innerHTML = "";
     getEl('.note-text-div').classList.remove('hidden');
-    getEl('.note-text-div textarea').innerHTML = noteObj.text;
+    getEl('.note-text-div textarea').value = noteObj.text;
     getEl('.note-title').value = noteObj.title;
+
+    getEl('.note-save-button').addEventListener('click', () => {
+      fetch(`${URL}/notes/${noteId}.json`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          title: getEl('.note-title').value,
+          text: getEl('.note-text-div textarea').value,
+          inUse: false
+        })
+      })
+      .then(() => {
+        // Reset the note text div
+        getEl('.note-title').value = "";
+        getEl('.note-text-div textarea').value = "";
+        getEl('.note-text-div').classList.add('hidden');
+      })
+      .then(() => getAllNotes())
+    });
 
     return noteId;
   })
 };
-
-
 
 // Change the note being view currently to inUse
 const activateNoteInUse = (noteId) => {
