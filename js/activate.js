@@ -24,6 +24,25 @@ const activateNoteList = () => {
 getAllNotes();
 activateNoteList();
 
+// Add event listener to show the new note title div
+getEl('.new-note-div').addEventListener('click', () => {
+  getEl('.note-menu').classList.add('hidden');
+  getEl('.note-title-div').classList.remove('hidden');
+});
+
 getEl('.new-note-button').addEventListener('click', () => {
-  console.log('New note');
+
+  fetch(`${URL}/notes/.json`, {
+    method: 'POST',
+    body: JSON.stringify({
+      title: getEl('.new-note-title').value,
+      text: '',
+      timeStamp: `${Date().slice(4,10)} ${Date().slice(16, 24)}`,
+      inUse: true
+    })
+  })
+  .then(res => res.json())
+  .then(console.log)
+  // getEl('.new-note-title').value = "";
+
 });

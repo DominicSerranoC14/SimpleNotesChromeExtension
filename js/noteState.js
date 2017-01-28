@@ -2,6 +2,10 @@
 
 // Determines if a note was actively being view last
 const determineNoteState = (noteArray) => {
+  if (!noteArray) {
+    return;
+  }
+
   const activeNote = noteArray.filter(each => each.inUse);
 
   if (activeNote.length === 1) {
