@@ -1,20 +1,17 @@
 'use strict';
 
 // Activate note click events
-const activateNoteItem = () => {
-  let currentObj;
+const activateNoteList = () => {
+  getEl('.note-list').addEventListener('click', (e) => {
+    if (e.target.classList.contains('note-item')) {
+      let noteId = e.target.id;
+      getEl('.note-menu').classList.add('hidden');
 
-  // getElList('.note-item').forEach(each => {
-  //   each.addEventListener('click', (e) => {
-  //     let noteId = e.target.id;
-  //     getEl('.note-menu').classList.add('hidden');
-  //
-  //     displaySelNote(noteId)
-  //     .then(activateNoteInUse)
-  //     .catch(console.error)
-  //
-  //   });
-  // });
+      displaySelNote(noteId)
+      .then(activateNoteInUse)
+      .catch(console.error)
+    }
+  })
 };
 
 const displaySelNote = (noteId) => {
@@ -26,8 +23,14 @@ const displaySelNote = (noteId) => {
     getEl('.note-text-div textarea').value = noteObj.text;
     getEl('.note-title').value = noteObj.title;
 
-    getEl('.note-save-button').addEventListener('click', () => {
-      fetch(`${URL}/notes/${noteId}.json`, {
+    const b = document.createElement('input');
+    b.setAttribute('id', noteId);
+    b.setAttribute('class', 'save-button');
+    b.setAttribute('type', 'button');
+    b.setAttribute('value', 'Save Note');
+    getEl('.note-text-div').append(b);
+    b.addEventListener('click', (e) => {
+      fetch(`${URL}/notes/${e.target.id}.json`, {
         method: 'PATCH',
         body: JSON.stringify({
           title: getEl('.note-title').value,
@@ -40,6 +43,7 @@ const displaySelNote = (noteId) => {
         getEl('.note-title').value = "";
         getEl('.note-text-div textarea').value = "";
         getEl('.note-text-div').classList.add('hidden');
+        getEl('.save-button').remove();
       })
       .then(() => getAllNotes())
     });

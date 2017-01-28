@@ -6,6 +6,7 @@ const getElList = (selector) => document.querySelectorAll(selector);
 
 // Call get to firebase to fire note display logic
 getAllNotes();
+activateNoteList();
 
 getEl('.new-note-button').addEventListener('click', () => {
   console.log('New note');

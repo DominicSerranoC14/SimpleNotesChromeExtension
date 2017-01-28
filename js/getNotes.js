@@ -39,5 +39,4 @@ const displayNoteList = (noteList) => {
   })
 
   getEl('.note-list').innerHTML = html;
-  activateNoteItem();
 };
