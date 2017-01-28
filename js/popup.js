@@ -1,8 +1,8 @@
 'use strict';
 
-const getEl = (tagName) => document.querySelector(tagName);
+const getEl = (selector) => document.querySelector(selector);
 
-const getElList = (tagName) => document.querySelectorAll(tagName);
+const getElList = (selector) => document.querySelectorAll(selector);
 
 const createNewNote = () => {
   const httpRequest = new XMLHttpRequest();

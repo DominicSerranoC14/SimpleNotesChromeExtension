@@ -46,18 +46,29 @@ const displayNoteList = (noteList) => {
   });
 };
 
+// Activate note click events
 const activateNoteItem = () => {
-
   getElList('.note-item').forEach(each => {
     each.addEventListener('click', (e) => {
       let itemId = e.target.id;
 
       fetch(`${URL}/notes/${itemId}.json`)
       .then(response => response.json())
-      .then(console.log)
+      .then(noteObj => {
+        console.log("noteObj", noteObj);
+        getEl('.note-list').innerHTML = "";
+        getEl('.note-text-div').classList.remove('hidden');
+        getEl('.note-text-div textarea').innerHTML = noteObj.text;
+        getEl('.note-title').value = noteObj.title;
+      })
 
-      getEl('note-texarea');
     });
   });
-
 };
+
+
+// fetch(`${URL}/new/-KbXvpH3Eg2zCkrhAJ2y.json`, {
+//   method: 'PUT',
+//   body: JSON.stringify({ main: 'one', set: [1,3] })
+// })
+// .then(console.log);

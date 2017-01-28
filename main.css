@@ -11,11 +11,15 @@ body {
 
 input {
   margin: 1rem;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 p {
   margin: .5rem;
+}
+
+textarea {
+  font-size: 16px;
 }
 
 /* Styles the note list div */
