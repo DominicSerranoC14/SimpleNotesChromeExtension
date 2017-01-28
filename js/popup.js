@@ -4,20 +4,11 @@ const getEl = (selector) => document.querySelector(selector);
 
 const getElList = (selector) => document.querySelectorAll(selector);
 
-const createNewNote = () => {
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.open('POST', 'https://simple-notes-23614.firebaseio.com/.json');
-  httpRequest.send(JSON.stringify(noteTitle.value));
-  httpRequest.addEventListener('load', loadSuccess);
-};
+// Call get to firebase to fire note display logic
+getAllNotes();
 
 getEl('.view-notes-button').addEventListener('click', getAllNotes);
 
 getEl('.new-note-button').addEventListener('click', () => {
   console.log('New note');
 });
-
-// newNoteButton.addEventListener('click', () => {
-//   console.log("Test sent", noteTitle.value);
-//   createNewNote();
-// });
