@@ -30,6 +30,7 @@ const saveCurrentNoteAndExit = (e) => {
     getEl('.note-text-div').classList.add('hidden');
     getEl('.save-button').remove();
     getEl('.save-exit-button').remove();
+    getEl('.delete-button').remove();
   })
   .then(() => getAllNotes())
   .catch(console.error);

@@ -39,3 +39,7 @@ textarea {
 .note-item:hover {
   color: blue;
 }
+
+.delete-button {
+  color: red;
+}
