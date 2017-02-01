@@ -1,62 +1,20 @@
 'use strict';
 
+// Get all notes and add firebase key to each note obj
 const getAllNotes = () => {
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.open('GET', 'https://simple-notes-23614.firebaseio.com/notes/.json');
-  httpRequest.send();
-  httpRequest.addEventListener('load', parseGetNotes);
-};
+  fetch(`${URL}/notes/.json`)
+  .then((response) => response.json())
+  .then(fbObj => {
 
-const parseGetNotes = (e) => {
-  const parsed = JSON.parse(e.target.responseText);
+    if (!fbObj) {
+      getEl('.note-menu').classList.remove('hidden');
+      return;
+    }
 
-  const values = Object.values(parsed);
-  const keys = Object.keys(parsed);
-  values.forEach((each, i) => each.key = keys[i]);
-
-  determineNoteState(values);
-};
-
-// Determines if a note was actively being view last
-const determineNoteState = (noteArray) => {
-  const activeNote = noteArray.filter(each => each.inUse);
-
-  if (activeNote.length === 1) {
-    displayNoteList(activeNote);
-  } else {
-    displayNoteList(noteArray);
-  };
-};
-
-const displayNoteList = (noteList) => {
-  let html = "<h2>Note List</h2>";
-  getEl('.note-menu').classList.add('hidden');
-  getEl('.note-list').classList.remove('hidden');
-
-  noteList.forEach((each) => {
-    html += `
-    <p class="note-item" id="${each.key}">${each.title}</p>
-    `;
+    const values = Object.values(fbObj);
+    const keys = Object.keys(fbObj);
+    values.forEach((each, i) => each.key = keys[i]);
+    return values;
   })
-
-  html += `<input class="nav-to-menu" type="button" value="Back to Menu" />`;
-  getEl('.note-list').innerHTML = html;
-
-  getEl('.nav-to-menu').addEventListener('click', () => {
-    getEl('.note-list').innerHTML = "";
-    getEl('.note-menu').classList.remove('hidden');
-  });
-
-  activateNoteItem();
-};
-
-const activateNoteItem = () => {
-
-  getElList('.note-item').forEach(each => {
-    each.addEventListener('click', (e) => {
-      let itemId = e.target.id;
-      getEl('note-texarea');
-    });
-  });
-
+  .then(determineNoteState);
 };

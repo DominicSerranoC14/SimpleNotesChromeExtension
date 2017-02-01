@@ -8,28 +8,32 @@
 <body>
 
 
-  <div class="note-menu">
+  <div class="note-menu hidden">
     <h1>Simple Notes</h1>
-    <input class="view-notes-button" type="button" value="View Notes">
-    <input class="new-note-button" type="button" value="Create Note">
-  </div>
-
-  <div class="note-list hidden">
+    <div class="note-list">
+    </div>
+    <input class="new-note-div" type="button" value="Create Note">
   </div>
 
   <div class="note-title-div hidden">
-    <input class="note-title" type="text" name="name-title" placeholder="Note title" />
+    <h2>Add Title for New Note</h2>
+    <input class="new-note-title" type="text" placeholder="Note title" />
     <input class="new-note-button" type="button" value="Create Note">
   </div>
 
   <div class="note-text-div hidden">
+    <p disabled class="time-p"></p>
+    <input class="note-title" type="text" />
     <textarea class="note-textarea" rows="20" cols="50"></textarea>
-    <input class="note-save-button" type="button" value="Save Note">
   </div>
 
 
+  <script src="js/display.js"></script>
+  <script src="js/noteState.js"></script>
+  <script src="js/saveNote.js"></script>
+  <script src="js/saveAndExit.js"></script>
   <script src="js/getNotes.js"></script>
-  <script src="js/popup.js"></script>
-  
+  <script src="js/activate.js"></script>
+
 </body>
 </html>
