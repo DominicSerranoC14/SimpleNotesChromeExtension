@@ -13,13 +13,13 @@ const createDeleteButton = (noteId) => {
 
 // Error with window.confirm. Closes automatically if dev tools are not open
 // Display confirmation modal
-// const confirmNoteDeletion = (e) => {
-//   let currentNoteTitle = getEl('.note-title').value;
-//
-//   if (confirm(`Delete note '${currentNoteTitle}'?`)) {
-//     deleteCurrentNote(e);
-//   };
-// };
+const confirmNoteDeletion = (e) => {
+  let currentNoteTitle = getEl('.note-title').value;
+
+  if (confirm(`Delete note '${currentNoteTitle}'?`)) {
+    deleteCurrentNote(e);
+  };
+};
 
 // Deletes the currently displayed note from FB
 const deleteCurrentNote = (e) => {
