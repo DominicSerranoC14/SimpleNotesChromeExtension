@@ -8,5 +8,9 @@
   "browser_action": {
     "default_icon": "earth.png",
     "default_popup": "popup.html"
-  }
+  },
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ]
 }

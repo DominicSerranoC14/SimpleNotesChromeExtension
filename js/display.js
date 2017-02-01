@@ -28,6 +28,7 @@ const displaySelNote = (noteId) => {
 
     createItemSaveButton(noteId);
     createItemSaveAndExitButton(noteId);
+    createDeleteButton(noteId);
 
     return noteId;
   })
