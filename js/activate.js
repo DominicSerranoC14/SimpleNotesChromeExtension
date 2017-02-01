@@ -20,7 +20,7 @@ const activateNoteList = () => {
   })
 };
 
-// Call get to firebase to fire note display logic
+// Get notes and activate note list for list menu
 getAllNotes();
 activateNoteList();
 
@@ -30,19 +30,5 @@ getEl('.new-note-div').addEventListener('click', () => {
   getEl('.note-title-div').classList.remove('hidden');
 });
 
-getEl('.new-note-button').addEventListener('click', () => {
-
-  fetch(`${URL}/notes/.json`, {
-    method: 'POST',
-    body: JSON.stringify({
-      title: getEl('.new-note-title').value,
-      text: '',
-      timeStamp: `${Date().slice(4,10)} ${Date().slice(16, 24)}`,
-      inUse: true
-    })
-  })
-  .then(res => res.json())
-  .then(console.log)
-  // getEl('.new-note-title').value = "";
-
-});
+// Activate create new note button
+getEl('.new-note-button').addEventListener('click', createNewNote);
